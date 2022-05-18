@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Top Actors - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="mt-5 mb-5">
+            <div class="row-cols-1">
+                {% for actor in actors %}
+                    <div class="container col-lg-4 col-lg-4 mb-5 ">
+                        <div class="card-deck">
+                            <div class="card d-flex justify-content-between">
+                                <a href="/actor/{{ actor.slug }}">
+                                    <div class="bg-image hover-overlay">
+                                        <div class="mask mask-custom" style="backdrop-filter: blur(4px); background-color: rgba(0, 0, 0, 0.35);">
+                                            <div class="d-flex justify-content-center align-items-center h-100">
+                                                <h1 class="text-white mb-0 btn btn-lg bg-dark bg-transparent">View more</h1>
+                                            </div>
+                                        </div>
+                                        <img src="/images/{{ actor.avatar }}" class="card-img-top shadow" alt="">
+                                    </div>
+                                    <div class="card-footer">
+                                        <h4 class="text-light fw-bold text-center mt-1"> {{ actor.name }}</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

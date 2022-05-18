@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+<form method="post">
+    <section class="vh-100 bg-image" style="background-image:  url('{{ asset('assets/mdb-ui-kit/img/login-background.jpg') }}');">
+        <div class="mask d-flex">
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+                        <div class="card rounded-7" style="background: rgba(0,0,0,0.5);">
+                            <div class="card-body row d-flex justify-content-center text-center">
+
+                                <div class="">
+                                    <h1>Register Now!</h1>
+                                </div>
+
+                                {{ form_start(registrationForm) }}
+
+                                <div class="row justify-content-center mt-2">
+                                    <div class="col-8">
+                                        {{ form_row(registrationForm.email) }}
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center mt-2">
+                                    <div class="col-8">
+                                        {{ form_row(registrationForm.name) }}
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center mt-2">
+                                    <div class="col-8">
+                                        {{ form_row(registrationForm.plainPassword) }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 mt-3 justify-content-center">
+                                    <div class="col-4">
+                                        <div class="checkbox">
+                                            <label>
+                                                {{ form_row(registrationForm.agreeTerms) }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-outline- bg-gradient btn-danger mb-2 mt-2 col-5" type="submit">
+                                    Register
+                                </button>
+
+                                {{ form_end(registrationForm) }}
+
+
+                                <p class="text-center text-muted mt-4 mb-0">Have already an account? <a href="{{ path('app_login') }}" class="fw-bold"><u class="text-decoration-none">Login here</u></a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

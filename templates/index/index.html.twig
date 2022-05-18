@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="col-xxl-10 col-xl-12 col-lg-12 col-12 col-m-12 col-sm-12 me-auto ms-auto">
+        <div id="carouselExampleCrossfade" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+            <div class="carousel-indicators">
+                <button
+                        type="button"
+                        data-mdb-target="#carouselExampleCrossfade"
+                        data-mdb-slide-to="0"
+                        class="active"
+                        aria-current="true"
+                        aria-label="Slide 1"
+                ></button>
+                <button
+                        type="button"
+                        data-mdb-target="#carouselExampleCrossfade"
+                        data-mdb-slide-to="1"
+                        aria-label="Slide 2"
+                ></button>
+                <button
+                        type="button"
+                        data-mdb-target="#carouselExampleCrossfade"
+                        data-mdb-slide-to="2"
+                        aria-label="Slide 3"
+                ></button>
+                <button
+                        type="button"
+                        data-mdb-target="#carouselExampleCrossfade"
+                        data-mdb-slide-to="3"
+                        aria-label="Slide 4"
+                ></button>
+                <button
+                        type="button"
+                        data-mdb-target="#carouselExampleCrossfade"
+                        data-mdb-slide-to="4"
+                        aria-label="Slide 5"
+                ></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-mdb-interval="3000">
+                    <img src="{{ asset('images/slajdy/slajd1.jpg') }}" class="d-block w-100" alt=""/>
+                </div>
+                <div class="carousel-item" data-mdb-interval="3000">
+                    <img src="{{ asset('images/slajdy/slajd2.jpg') }}" class="d-block w-100" alt=""/>
+                </div>
+                <div class="carousel-item" data-mdb-interval="3000">
+                    <img src="{{ asset('images/slajdy/slajd3.jpg') }}" class="d-block w-100" alt=""/>
+                </div>
+                <div class="carousel-item" data-mdb-interval="3000">
+                    <img src="{{ asset('images/slajdy/slajd4.jpg') }}" class="d-block w-100" alt=""/>
+                </div>
+                <div class="carousel-item" data-mdb-interval="3000">
+                    <img src="{{ asset('images/slajdy/slajd5.jpg') }}" class="d-block w-100" alt=""/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container bg-dark text-muted">
+        <div class="h-100 w-100 d-block  mt-4 mb-4 p-3">
+            <div class="container">
+                <h1 class="text-light">News on Netflix</h1>
+                <hr>
+                <ul class="control" id="custom-control">
+                    <li class="prev">
+                        <i class="fas fa-angle-left fa-2x"></i>
+                    </li>
+                    <li class="next">
+                        <i class="fas fa-angle-right fa-2x "></i>
+                    </li>
+                </ul>
+                <div class="my-slider">
+                    {% for movie in netflixes %}
+                    <div class="card-deck">
+                        <div class="card d-flex justify-content-between" data-mdb-toggle="tooltip" title="{{ movie.name }}">
+                            <a href="/movie/{{ movie.slug }}">
+                                <div class="bg-image hover-zoom">
+                                    <img src="/images/{{ movie.filename }}" class="card-img-top shadow" alt="{{ movie.name }}">
+                                </div>
+                                <div class="card-footer">
+                                    <h6 class="text-light small text-center text-truncate">
+                                        {{ movie.name }}
+                                    </h6>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-dark text-muted">
+        <div class="h-100 w-100 d-block mt-4 mb-4 p-3">
+            <div class="container">
+                <h1 class="text-light">Coming Out in Cinema</h1>
+                <hr>
+                <ul class="control" id="custom-control2">
+                    <li class="prev2">
+                        <i class="fas fa-angle-left fa-2x"></i>
+                    </li>
+                    <li class="next">
+                        <i class="fas fa-angle-right fa-2x"></i>
+                    </li>
+                </ul>
+                <div class="my-slider2">
+                    {% for movie in cinemas %}
+                        <div class="card-deck">
+                            <div class="card d-flex justify-content-between">
+                                <a href="/movie/{{ movie.slug }}" data-mdb-toggle="tooltip" title="{{ movie.name }}">
+                                    <div class="bg-image hover-zoom">
+                                        <img src="/images/{{ movie.filename }}" class="card-img-top shadow" alt="{{ movie.name }}">
+                                    </div>
+                                    <div class="card-footer">
+                                        <h6 class="text-light small text-center text-truncate">{{ movie.name }}</h6>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

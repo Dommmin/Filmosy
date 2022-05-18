@@ -1,0 +1,44 @@
+<div class="list-group bg-dark text-truncate">
+    {% for movie in movies %}
+        <a
+                role="option"
+                class="list-group-item list-group-item-action"
+                href="{{ path('movie', {slug: movie.slug}) }}"
+                data-mdb-toggle="tooltip" title="{{ movie.name }}"
+        >
+            <div class="d-flex align-items-center justify-content-between ">
+                <div class="">
+                    <img
+                            alt="{{ movie.name }}"
+                            src="/images/{{ movie.filename }}"
+                            class="rounded"
+                    >
+                    <span class="px-1 text-light">{{ movie.name }}</span>
+                </div>
+            </div>
+        </a>
+
+    {% endfor %}
+    {% for actor in actors %}
+    <a
+            role="option"
+            class="list-group-item list-group-item-action"
+            href="{{ path('actor', {slug: actor.slug}) }}"
+            data-mdb-toggle="tooltip" title="{{ actor.name }}"
+    >
+        <div class="d-flex align-items-center justify-content-between text-truncate">
+            <div class="">
+                <img
+                        alt="{{ actor.name }}"
+                        src="/images/{{ actor.avatar }}"
+                        class="rounded"
+                >
+                <span class="px-1 text-light">{{ actor.name }}</span>
+            </div>
+        </div>
+    </a>
+        {# TODO  #}
+        {#    {% else %}#}
+        {#        <div class="list-group-item" role="option" aria-disabled="true">No results found!</div>#}
+    {% endfor %}
+</div>

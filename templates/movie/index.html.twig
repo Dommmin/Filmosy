@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% for movie in movies %} {{ movie.name }} {% endfor %}- {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for movie in movies %}
+        <div class="mt-4 embed-responsive embed-responsive-16by9">
+            <iframe src="{{ movie.trailer }}" allow="autoplay" type="video/mp4" class="embed-responsive-item"></iframe>
+        </div>
+        <div class="mt-5">
+            <div class="row">
+                <div class=" col-xxl col-xl col-lg-12 col-12 col-md-12 col-sm-12">
+                    <div class="bg-image rounded-4 mb-2 hover-zoom">
+                        <img src="/images/{{ movie.filename }}" class="card-img shadow" alt="">
+                        {% if bookmarks %}
+                            <div class="card-img-overlay">
+                                <a href="{{ path('app_favorite', {'slug': movie.slug}) }}"><i class="fas fa-heart fa-3x card-title link-danger"></i></a>
+                            </div>
+                        {% else %}
+                            <div class="card-img-overlay">
+                                <a href="{{ path('app_favorite', {'slug': movie.slug}) }}"><i class="far fa-heart fa-3x card-title link-danger"></i></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                        <div class="col">
+                            <h2 class="text-start">{{ movie.name }}</h2>
+                            <p>{{ movie.description }}</p>
+                        </div>
+                        <div class="mb-2">
+                            <a href="{{ movie.watch }}" class="btn btn-outline- link-info bg-gradient col-5">Watch Now</a>
+                        </div>
+                    {% for director in movie.director %}
+                    <div class="row mt-lg-4">
+                        <div class="col-4">
+                            <p class="text-muted">Director</p>
+                        </div>
+                        <div class="col-8">
+                            <p>
+                                <a href="../director/{{ director.slug }}">
+                                    <u class="text-decoration-none link-danger">{{ director.name }}</u>
+                                </a>
+                            </p>
+                        </div>
+                        {% endfor %}
+                        <div class="col-4">
+                            <p class="text-muted">Country</p>
+                        </div>
+                        <div class="col-8">
+                            <a href="../ranking/movies/country/{{ movie.country }}">
+                                <u class="text-decoration-none link-warning">{{ movie.country }}</u>
+                            </a>
+                        </div>
+
+                        <div class="col-4">
+                            <p class="text-muted">Genres</p>
+                        </div>
+                        <div class="col-8">
+                            {% for genre in movie.genre %}
+                                <u class="text-decoration-none">
+                                    <a href="../ranking/movies/genre/{{ genre.name }}">
+                                        <u class="text-decoration-none link-success">{{ genre.name|join('/', '/') }}</u>
+                                    </a>
+                                </u>
+                            {% endfor %}
+                        </div>
+                        <div class="col-4">
+                            <p class="text-muted">Released date</p>
+                        </div>
+                        <div class="col-8">
+                            <p>{{ movie.releasedAt|date('d M Y') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for rating in ratings %}
+            {% for vote in votes %}
+                <div class="row">
+                    <div class="col-auto">
+                      <i class="fas fa-star fa-3x text-warning"></i>
+                    </div>
+                    <div class="col-auto">
+                        <u class="text-decoration-none fs-6">{{ rating|round(2) }} / 10</u>
+                        <p class="text-center small">( {{ vote }} )</p>
+                    </div>
+
+            {% endfor %}
+        {% endfor %}
+                    <div class="col-auto mt-2">
+                        <!-- Button trigger modal -->
+                        {% if rates %}
+                            {% for rate in rates %}
+                                Your Rating
+                                <p class="text-center">{{ rate.vote }} <i class="fas fa-star link-warning fa-xs"></i></p>
+                            {% endfor %}
+                        {% else %}
+                            <button type="button" class="btn btn-outline- bg-gradient link-warning" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                                <i class="far fa-star fa-lg"></i>
+                                <u class="text-decoration-none"> Rate</u>
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Rate {{ movie.name }} !</h5>
+                                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            {{ form_start(vote) }}
+                                            {% for vote in vote.vote %}
+                                                <div class="form-check form-check-inline form-group">
+                                                    {{ form_row(vote) }}
+                                                </div>
+                                            {% endfor %}
+                                                {% if app.user %}
+                                                    <button class="btn btn-outline- link-warning bg-gradient" type="submit" href="ra">Vote !</button>
+                                                    {% else %}
+                                                        <h4>Login first!</h4>
+                                                    <a href="{{ path('app_login') }}" class="btn btn-outline- link-primary bg-gradient">Login</a>
+                                                {% endif %}
+                                            {{ form_end(vote) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <hr class="mb-0 mt-2">
+
+                    <div class="mt-3 mb-5">
+                        <h2>Top Cast</h2>
+                        <div class="container">
+                            <ul class="control" id="custom-control">
+                                <li class="prev">
+                                    <i class="fas fa-angle-left fa-2x"></i>
+                                </li>
+                                <li class="next">
+                                    <i class="fas fa-angle-right fa-2x"></i>
+                                </li>
+                            </ul>
+                            <div class="my-slider">
+                                {% for actor in movie.actor %}
+                                    <div class="card-deck">
+                                        <div class="card d-flex justify-content-between bg-image" data-mdb-toggle="tooltip" title="{{ actor.name }}">
+                                            <a href="../actor/{{ actor.slug }}">
+                                                <div class="bg-image hover-zoom">
+                                                    <img src="/images/{{ actor.avatar }}" class="card-img-top shadow" alt="">
+                                                </div>
+                                                <div class="card-footer text-center text-truncate">
+                                                    <a class="text-decoration-none text-light responsive-font-example" href="../actor/{{ actor.slug }}">{{ actor.name }}</a>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    {% endfor %}
+</div>
+{% endblock %}

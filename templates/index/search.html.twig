@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    {% for actor in actors %}
+        <div class="container container-fluid">
+            <div class="row border mb-3 mt-3">
+                <div class="col-md-2 ">
+                    <a href="/actor/{{ actor.slug }}">
+                        <img src="/images/{{ actor.avatar }}" class="img-fluid" alt="">
+                    </a>
+                </div>
+                <div class="col-md">
+                    <a href="actor/{{ actor.slug }}" class="fs-4 text-light fw-bold text-decoration-none">{{ actor.name }}</a>
+                    <p>{{ actor.bio }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% for movie in movies %}
+        <div class="container container-fluid">
+            <div class="row border mb-3 mt-3">
+                <div class="col-md-3 ">
+                    <a href="/movie/{{ movie.slug }}">
+                        <img src="/images/{{ movie.filename }}" class="img-fluid" alt="">
+                    </a>
+                </div>
+                <div class="col-md col-form-label-sm">
+                    <a href="/movie/{{ movie.slug }}" class="fs-4 text-light fw-bold text-decoration-none">{{ movie.name }}</a>
+                    <p>{{ movie.description }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+

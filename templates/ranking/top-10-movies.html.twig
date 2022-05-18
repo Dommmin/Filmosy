@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Top Movies - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container col-xxl col-xl col-lg col col-md col-sm mt-5">
+        {% for movie in movies %}
+        <div class="card-deck mb-5">
+            <div class="card d-flex justify-content-between">
+                <a href="/movie/{{ movie.slug }}">
+                    <div class="bg-image hover-overlay">
+                        <div class="mask mask-custom" style="backdrop-filter: blur(4px); background-color: rgba(0, 0, 0, 0.35);">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <h1 class="text-white mb-0 btn btn-lg bg-dark bg-transparent">
+                                    View more...
+                                </h1>
+                            </div>
+                        </div>
+                        <img src="/images/{{ movie.filename }}" class="card-img-top shadow" alt="">
+                    </div>
+
+                    <div class="card-footer">
+                        <h4 class="text-light fw-bold text-center mt-1" data-mdb-toggle="tooltip" title="{{ movie.name }}"> {{ movie.name }}
+                            <u class="text-decoration-none"><i class="fas fa-star text-warning"></i> {{ movie.votes|round(2) }}</u>
+{#                                ( {{ movie.releasedAt|date('Y') }} )#}
+                        </h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

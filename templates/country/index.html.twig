@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Genre - {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for movie in movies|slice(0,1) %}
+        <h1 class="text-warning">{{ movie.country }}</h1>
+    {% endfor %}
+    {% for movie in movies %}
+            <div class="mb-5">
+                <div class="row border border-end mb-3 mt-3">
+                    <div class="col-xxl-3 col-lg-3 col col-md col-sm">
+                        <div class="bg-image hover-zoom">
+                            <a href="/movie/{{ movie.slug }}" data-mdb-toggle="tooltip" title="{{ movie.name }}">
+                                <img src="/images/{{ movie.filename }}" class="img-fluid " alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md ">
+                        <a href="/movie/{{ movie.slug }}" class="fs-4 text-light fw-bold text-decoration-none">{{ movie.name }}</a>
+                        <p>{{ movie.description }}</p>
+{#                            <div class="position-absolute bottom-0 end-0">#}
+{#                                <p class="fs-6 me-3"><i class="fas fa-star text-warning"></i> {{ movies.votes|round(2) }}</p>#}
+{#                            </div>#}
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+</div>
+{% endblock %}

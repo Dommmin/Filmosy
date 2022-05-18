@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Director{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for director in directors %}
+        <div class="mt-5 mb-5">
+            <div class="row">
+                <div class="col-xxl-3 col-xl-4 col-12 col-md-5 col-sm-10">
+                    <div class="card-deck">
+                        <div class="card d-flex justify-content-between">
+                            {% if director.avatar %}
+                                <div class="imageGallery1 bg-image hover-zoom">
+                                    <img src="/images/{{ director.avatar }}" class="card-img-top shadow" alt="">
+                                </div>
+                                {% else %}
+                                <div class="imageGallery1 bg-image hover-zoom">
+                                    <img src="{{ asset('images/default_avatar.jpg') }}" class="card-img-top shadow" alt="">
+                                </div>
+                            {% endif %}
+                            <div class="card-footer text-center">
+                                <u class="text-decoration-none fst-italic">{{ director.name }}</u>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-xxl-6 col-xl-6 col-lg-5 col-md-7 col-sm-12">
+                    {% if director.bio %}
+                        <p>{{ director.bio }}</p>
+                    {% else %}
+                        <h5 class="alert alert-danger">This Director has no biography added yet!</h5>
+                    {% endif %}
+                    <div class="row mt-4">
+                        <div class="col col-xxl-3 col-xl-4 col-lg-4 col-md-3 col-sm-5">
+                            <p>Date of birth</p>
+                            <p>Born</p>
+                        </div>
+                        <div class="col col-xxl-6 col-xl-5 col-sm">
+                            <p>{{ director.birthday|date('d M Y') }}</p>
+                            <p>{{ director.birthplace }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 mb-5"><hr>
+            <h4 class="text-success">Filmography:</h4>
+            <div class="row">
+                {% for movies in director.movies %}
+                    <div class="">
+                        <h5>{{ movies.releasedAt|date('Y') }}</h5>
+                    </div>
+                    <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-8 mb-3">
+                        <div class="card-deck">
+                            <div class="card d-flex justify-content-between">
+                                <div class="imageGallery1 bg-image hover-zoom">
+                                    <a href="../movie/{{ movies.slug }}"><img src="/images/{{ movies.filename }}" class="card-img-top shadow" alt=""></a>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a class="text-decoration-none text-light" href="{{ movies.slug }}">{{ movies.name }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

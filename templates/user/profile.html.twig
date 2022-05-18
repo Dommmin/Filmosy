@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% for user in users %}
+    {{ user.name }} - {{ parent() }}
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+
+    {% for user in users %}
+        <div class="container text-center bg-gradient">
+
+        {% if user.avatar %}
+            {% if user.name == app.user.name %}
+                <a href="{{ path('user_edit') }}">
+                    <img src="/images/avatars/{{ user.avatar }}" class="rounded-circle col-2 mt-5 dept" alt="">
+                </a>
+                {% else %}
+                    <img src="/images/avatars/{{ user.avatar }}" class="rounded-circle col-2 mt-5 dept" alt="">
+            {% endif %}
+
+                <h2 class="mt-2">{{ user.name }}</h2>
+            {% else %}
+                <a href="{{ path('user_edit', {'name': app.user.name}) }}">
+                    <i class="fas fa-user-circle fa-10x me-2 mt-5 mb-2 link-info"></i>
+                </a>
+
+                <h1>{{ user.name }}</h1>
+        {% endif %}
+
+            <p>{{ user.email }}</p>
+
+    {% endfor %}
+
+    <a
+            class="btn btn-danger"
+            data-mdb-toggle="collapse"
+            href="#multiCollapseExample1"
+            role="button"
+            aria-expanded="false"
+            aria-controls="multiCollapseExample1"
+    >
+        <i class="fas fa-heart fa-lg"></i>
+    </a>
+    <button
+            class="btn btn-warning"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#multiCollapseExample2"
+            aria-expanded="false"
+            aria-controls="multiCollapseExample2"
+    >
+        <i class="fas fa-star fa-lg"></i>
+    </button>
+
+    <!-- Collapsed content -->
+    <div class="row">
+        <div class="col">
+            <div class="collapse multi-collapse mt-3" id="multiCollapseExample1">
+                {% if bookmarks %}
+                    {% for bookmark in bookmarks %}
+                        <a href="../movie/{{ bookmark.movie.slug }}">
+                            <p class="link-danger">{{ bookmark.movie.name }}</p>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p>Your Watchlist is empty!</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse multi-collapse mt-3" id="multiCollapseExample2">
+                {% if favorites %}
+                    {% for favorite in favorites %}
+                        <a class="" href="../movie/{{ favorite.movie.slug }}">
+                            <p class="link-success">{{ favorite.vote }} <i class="fas fa-star link-warning"></i> - {{ favorite.movie.name }}</p>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p>Your Rates are empty!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
