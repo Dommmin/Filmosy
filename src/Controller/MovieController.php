@@ -80,6 +80,9 @@ final class MovieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
+            $this->denyAccessUnlessGranted('ROLE_USER');
+
+
             if (!$vote) {
                 $vote = new Rating();
 
@@ -95,6 +98,11 @@ final class MovieController extends AbstractController
                 ]);
             }
         }
+
+
+
+
+
 
         return $this->render('movie/index.html.twig', [
             'movies' => $movies,

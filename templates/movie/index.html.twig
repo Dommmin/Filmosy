@@ -117,12 +117,7 @@
                                                     {{ form_row(vote) }}
                                                 </div>
                                             {% endfor %}
-                                                {% if app.user %}
-                                                    <button class="btn btn-outline- link-warning bg-gradient" type="submit" href="ra">Vote !</button>
-                                                    {% else %}
-                                                        <h4>Login first!</h4>
-                                                    <a href="{{ path('app_login') }}" class="btn btn-outline- link-primary bg-gradient">Login</a>
-                                                {% endif %}
+                                                <button class="btn btn-outline- link-warning bg-gradient" type="submit" href="ra">Vote !</button>
                                             {{ form_end(vote) }}
                                         </div>
                                     </div>
