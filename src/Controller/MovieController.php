@@ -21,22 +21,26 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class MovieController extends AbstractController
 {
-    #[Route('/movies/{page<\d+>}', name: 'movies')]
+    #[Route('/movies', name: 'movies')]
+//    #[Route('/movies/{page<\d+>}', name: 'movies')]
     public function index(MovieRepository $movieRepository, int $page = 1): Response
     {
 //        $movies = $movieRepository->allMoviesSQL();
 
-        $queryBuilder = $movieRepository->allMovies();
+        $movies = $movieRepository->allMovies();
 
-        $pagerfanta = new PagerFanta(
-            new QueryAdapter($queryBuilder)
-        );
-
-        $pagerfanta->setMaxPerPage(5);
-        $pagerfanta->setCurrentPage($page);
+//        $queryBuilder = $movieRepository->allMovies();
+//
+//        $pagerfanta = new PagerFanta(
+//            new QueryAdapter($queryBuilder)
+//        );
+//
+//        $pagerfanta->setMaxPerPage(5);
+//        $pagerfanta->setCurrentPage($page);
 
         return $this->render('content/movies.html.twig', [
-            'pager' => $pagerfanta,
+//            'pager' => $pagerfanta,
+            'movies' => $movies,
         ]);
     }
 

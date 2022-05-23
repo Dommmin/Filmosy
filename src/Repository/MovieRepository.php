@@ -138,13 +138,18 @@ class MovieRepository extends ServiceEntityRepository
 //        return $stmt->executeQuery()->fetchAllAssociative();
 //    }
 
-    public function allMovies(): QueryBuilder
+    // TODO Pagination
+
+//    public function allMovies(): QueryBuilder
+    public function allMovies()
     {
         return $this->createQueryBuilder('m')
             ->leftJoin('m.rating', 'rating')
-            ->addSelect('rating')
+            ->addSelect('m.slug, m.name, m.filename, m.description, AVG(rating.vote) as votes')
             ->orderBy('m.releasedAt', 'desc')
-
+            ->addGroupBy('m.name, m.slug')
+            ->getQuery()
+            ->getResult()
             ;
     }
 }

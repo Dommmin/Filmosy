@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-5">
-    {% for movie in pager %}
+    {% for movie in movies %}
 
         <div class="row border border-end mb-3 mt-3">
             <div class="col-xxl-3 col-lg-3 col col-md col-sm">
@@ -19,16 +19,14 @@
                 <a href="/movie/{{ movie.slug }}" class="fs-4 text-light fw-bold text-decoration-none">{{ movie.name }}</a>
                 <p>{{ movie.description }}</p>
                 <div class="text-end">
-                    {% for rating in movie.rating %}
-                        <p class="fs-6 me-3"><i class="fas fa-star text-warning"></i> {{ rating.vote|round(2) }}</p>
-                    {% endfor %}
+                        <p class="fs-6 me-3"><i class="fas fa-star text-warning"></i> {{ movie.votes|round(2) }}</p>
                 </div>
             </div>
         </div>
     {% endfor %}
     </div>
     <div class="d-flex justify-content-center">
-        {{ pagerfanta(pager) }}
+{#        {{ pagerfanta(pager) }}#}
     </div>
 
 
